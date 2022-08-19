@@ -23,22 +23,21 @@ std::string encryptCaesar(std::string str, int shift)
     {
         if (is_Uppercase(str[i]))
         {
-            shiftCode = (int) str[i] + shift;
-            if (shiftCode > 90)
-                str[i] = '@' + (shiftCode) % 90;
-            else
-                str[i] = shiftCode;
+            shiftCode = ((int) (str[i] - 'A') + shift) % 26;
+            str[i] = (char) shiftCode + 'A';
         }
         else if (is_Lowercase(str[i]))
         {
-            shiftCode = (int) str[i] + shift;
-            if (shiftCode > 122)
-                str[i] = '`' + (shiftCode) % 122;
-            else
-                str[i] = shiftCode;
+            shiftCode = ((int) (str[i] - 'a') + shift) % 26;
+            str[i] = (char) shiftCode + 'a';
         }
     }
     return str;
+}
+
+std::string decryptCaesar(std::string str, int shift)
+{
+    return encryptCaesar(str, 26 - shift % 26);
 }
 
 int main() {
@@ -46,12 +45,9 @@ int main() {
     std::string text;
     std::cout << "Input text:\n";
     getline(std::cin, text);
+    std::cout << "Input shift:\n";
+    std::cin >> shift;
 
-    do
-    {
-        std::cout << "Input shift (1-25):\n";
-        std::cin >> shift;
-    } while (shift < 1 || shift > 25);
-
-    std::cout << std::endl << encryptCaesar(text, shift) << std::endl;
+    std::cout << "\nEncrypted:\n"<< encryptCaesar(text, shift) << std::endl;
+    std::cout << "\nDecrypted:\n"<< decryptCaesar(encryptCaesar(text, shift), shift) << std::endl;
 }

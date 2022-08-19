@@ -48,6 +48,8 @@ int main() {
     std::cout << "Input shift:\n";
     std::cin >> shift;
 
-    std::cout << "\nEncrypted:\n"<< encryptCaesar(text, shift) << std::endl;
-    std::cout << "\nDecrypted:\n"<< decryptCaesar(encryptCaesar(text, shift), shift) << std::endl;
+    std::string encryptedStr = encryptCaesar(text, shift);
+
+    std::cout << "\nEncrypted:\n"<< encryptedStr << std::endl;
+    std::cout << "\nDecrypted:\n"<< decryptCaesar(encryptedStr, shift) << std::endl;
 }
